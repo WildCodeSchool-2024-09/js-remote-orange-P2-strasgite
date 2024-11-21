@@ -13,7 +13,7 @@ import Price from "./Price/Price";
 import ReservedButton from "./ReservedButton/ReservedButton";
 import Separator from "./Separator/Separator";
 
-//affciher les chambre
+//affciher les chambres
 const sectionPresRoom = (
   <div className="presRoom">
     <PictureRoom />
