@@ -7,6 +7,9 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 // Import the main app component
 import App from "./App";
+import { BakOfficeProvider } from "./Context/BakOffice";
+import MesReservations from "./pages/MesReservations";
+import ReserveChambre from "./pages/ReserveChambre";
 
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
@@ -23,7 +26,14 @@ const router = createBrowserRouter([
     path: "/", // The root path
     element: <App />, // Renders the App component for the home page
   },
-  // Try adding a new route! For example, "/about" with an About component
+  {
+    path: "/reserve", // The root path
+    element: <ReserveChambre />, // Renders the App component for the home page
+  }, // Try adding a new route! For example, "/about" with an About component
+  {
+    path: "/mesreservations", // The root path
+    element: <MesReservations />, // Renders the App component for the home page
+  }, // Try adding a new route! For example, "/about" with an About component
 ]);
 
 /* ************************************************************************* */
@@ -37,7 +47,9 @@ if (rootElement == null) {
 // Render the app inside the root element
 createRoot(rootElement).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <BakOfficeProvider>
+      <RouterProvider router={router} />
+    </BakOfficeProvider>
   </StrictMode>,
 );
 

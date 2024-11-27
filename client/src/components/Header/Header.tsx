@@ -1,7 +1,12 @@
 import type React from "react";
+import { useState } from "react";
 import "./Header.css";
+import ModalGestionCompte from "./GestionCompte/ModalGestionCompte";
 
 const Header: React.FC = () => {
+  //state de si le modal est ouvert ou non
+  const [modalConnection, setmodalConnection] = useState(false);
+
   return (
     <div className="header-container">
       <header className="header">
@@ -14,13 +19,18 @@ const Header: React.FC = () => {
           <a href="#rooms" className="navbar-link">
             Nos chambres
           </a>
-          <a href="#reservations" className="navbar-link">
+          <a href="/MesReservations" className="navbar-link">
             Mes réservations
           </a>
+          <link />
           <a href="#contact" className="navbar-link">
             Contact
           </a>
-          <button className="navbar-btn" type="button">
+          <button
+            className="navbar-btn"
+            type="button"
+            onClick={() => setmodalConnection(!modalConnection)}
+          >
             Se connecter
           </button>
         </nav>
@@ -39,6 +49,10 @@ const Header: React.FC = () => {
           convivialité, pensé pour vos besoins.
         </p>
       </div>
+      {/* modal */}
+      {modalConnection ? (
+        <ModalGestionCompte setmodalConnection={setmodalConnection} />
+      ) : null}
     </div>
   );
 };
