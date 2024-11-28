@@ -1,17 +1,31 @@
 import type React from "react";
 import { useState } from "react";
 import "./Header.css";
+import { UseBakOfficeContext } from "../../hooks/UseBakOffice";
+import ConnectionBnt from "./ConnectionBnt/ConnectionBnt";
 import ModalGestionCompte from "./GestionCompte/ModalGestionCompte";
 
 const Header: React.FC = () => {
+  //récupère le bakOfficeContext
+  const { bakOffice } = UseBakOfficeContext();
   //state de si le modal est ouvert ou non
   const [modalConnection, setmodalConnection] = useState(false);
+
+  const MesReservations = () => {
+    if (bakOffice?.compteConnecter !== null) {
+      return (
+        <a href="/MesReservations" className="navbar-link">
+          Mes réservations
+        </a>
+      );
+    }
+  };
 
   return (
     <div className="header-container">
       <header className="header">
         <img
-          src="public/images/images_header/strasgite_logo.jpg"
+          src="/images/images_header/strasgite_logo.jpg"
           id="logo"
           alt="Logo"
         />
@@ -19,25 +33,21 @@ const Header: React.FC = () => {
           <a href="#rooms" className="navbar-link">
             Nos chambres
           </a>
-          <a href="/MesReservations" className="navbar-link">
-            Mes réservations
-          </a>
+          {MesReservations()}
           <link />
           <a href="#contact" className="navbar-link">
             Contact
           </a>
-          <button
-            className="navbar-btn"
-            type="button"
-            onClick={() => setmodalConnection(!modalConnection)}
-          >
-            Se connecter
-          </button>
+          {/* bouton de connection */}
+          <ConnectionBnt
+            modalConnection={modalConnection}
+            setmodalConnection={setmodalConnection}
+          />
         </nav>
       </header>
       <div className="chateau">
         <img
-          src="public/images/images_header/chateau.jpeg"
+          src="/images/images_header/chateau.jpeg"
           alt="Château"
           className="chateau-image"
         />
