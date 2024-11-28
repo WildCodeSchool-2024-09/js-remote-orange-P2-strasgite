@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { UseBakOfficeContext } from "../../../../hooks/UseBakOffice";
+import "./Inscription.css";
 
 interface InscriptionProps {
   SetpageInscription: (value: boolean) => void;
@@ -9,7 +10,6 @@ const Inscription: React.FC<InscriptionProps> = ({ SetpageInscription }) => {
   //charger le contexte de bakoffice
   const { bakOffice, setBakOffice } = UseBakOfficeContext();
 
-  //set les states
   const [prenom, setPrenom] = useState("");
   const [sexe, setSexe] = useState("");
   const [nom, setNom] = useState("");
@@ -20,40 +20,29 @@ const Inscription: React.FC<InscriptionProps> = ({ SetpageInscription }) => {
   const [ville, setVille] = useState("");
   const [adresse, setAdresse] = useState("");
 
-  function verifDoubleMail() {
-    return bakOffice?.compte
-      ? bakOffice.compte.some((compte) => compte.mail === mail)
-      : false;
-  }
-
   function inscription() {
     if (mail !== "" && motdePasse !== "") {
       if (bakOffice) {
-        // Vérifier si un compte avec cet email existe
-        if (!verifDoubleMail()) {
-          setBakOffice({
-            ...bakOffice,
-            compte: [
-              ...bakOffice.compte,
-              {
-                mail: mail,
-                password: motdePasse,
-                sex: sexe,
-                prenom: prenom,
-                nom: nom,
-                adresse: adresse,
-                telephone: telephone,
-                codePostal: Number.parseInt(codePostal),
-                ville: ville,
-                reservation: [],
-                favorite: [],
-              },
-            ],
-          });
-          SetpageInscription(false);
-        } else {
-          alert("ce compte existe déjà");
-        }
+        setBakOffice({
+          ...bakOffice,
+          compte: [
+            ...bakOffice.compte,
+            {
+              mail: mail,
+              password: motdePasse,
+              sex: sexe,
+              prenom: prenom,
+              nom: nom,
+              adresse: adresse,
+              telephone: telephone,
+              codePostal: Number.parseInt(codePostal),
+              ville: ville,
+              reservation: [],
+              favorite: [],
+            },
+          ],
+        });
+        SetpageInscription(false);
       }
     } else {
       alert("veuillez remplir toute les informations");
@@ -61,7 +50,7 @@ const Inscription: React.FC<InscriptionProps> = ({ SetpageInscription }) => {
   }
 
   return (
-    <div>
+    <div className="inscription-container">
       <p>INSCRIPTION</p>
       <form>
         {/* sex */}
@@ -94,23 +83,23 @@ const Inscription: React.FC<InscriptionProps> = ({ SetpageInscription }) => {
         {/* nom */}
         <input
           type="text"
-          placeholder="nom"
+          placeholder="Nom"
           value={nom}
           onChange={(e) => setNom(e.target.value)}
         />
 
         {/* mail */}
         <input
-          type="mail"
-          placeholder="adresse mail"
+          type="text"
+          placeholder="Adresse mail"
           value={mail}
           onChange={(e) => setMail(e.target.value)}
         />
 
         {/* telephone */}
         <input
-          type="tel"
-          placeholder="telephone"
+          type="text"
+          placeholder="Téléphone"
           value={telephone}
           onChange={(e) => setTelephone(e.target.value)}
         />
@@ -126,7 +115,7 @@ const Inscription: React.FC<InscriptionProps> = ({ SetpageInscription }) => {
         {/* adresse */}
         <input
           type="text"
-          placeholder="adresse"
+          placeholder="Adresse"
           value={adresse}
           onChange={(e) => setAdresse(e.target.value)}
         />
@@ -134,7 +123,7 @@ const Inscription: React.FC<InscriptionProps> = ({ SetpageInscription }) => {
         {/* code postal */}
         <input
           type="text"
-          placeholder="code postal"
+          placeholder="Code postal"
           value={codePostal}
           onChange={(e) => SetCodePostal(e.target.value)}
         />
@@ -142,17 +131,17 @@ const Inscription: React.FC<InscriptionProps> = ({ SetpageInscription }) => {
         {/* ville */}
         <input
           type="text"
-          placeholder="ville"
+          placeholder="Ville"
           value={ville}
           onChange={(e) => setVille(e.target.value)}
         />
 
         {/* bouton suivant */}
-        <button type="button" onClick={() => inscription()}>
-          suivant
+        <button className= "btn-suivant"  type="button" onClick={() => inscription()}>
+          Suivant
         </button>
       </form>
-      <button type="button" onClick={() => SetpageInscription(false)}>
+      <button className= "btn-annuler" type="button" onClick={() => SetpageInscription(false)}>
         Annuler
       </button>
     </div>

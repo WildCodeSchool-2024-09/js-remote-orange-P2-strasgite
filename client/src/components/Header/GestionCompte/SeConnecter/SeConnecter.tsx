@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { UseBakOfficeContext } from "../../../../hooks/UseBakOffice";
+import "./SeConnecter.css";
 
 interface SeConnecterProps {
   SetpageInscription: (value: boolean) => void;
@@ -10,44 +11,27 @@ const SeConnecter: React.FC<SeConnecterProps> = ({
   SetpageInscription,
   setmodalConnection,
 }) => {
-  //state de email et du mot de passe
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  //charger le contexte de bakoffice
   const { bakOffice, setBakOffice } = UseBakOfficeContext();
 
-  //fonction de connection
+  // Fonction de connexion
   function connection() {
     if (bakOffice) {
-      // Vérifier si un compte avec cet email existe
-      const compteTrouve = bakOffice.compte.find(
-        (compte: { mail: string }) => compte.mail === email,
+      bakOffice.compte.map(
+        (compte: { mail: string; password: string }, index: number) => {
+          if (compte.mail === email && compte.password === password) {
+            setBakOffice({ ...bakOffice, compteConnecter: index });
+            setmodalConnection(false);
+          }
+        },
       );
-
-      if (!compteTrouve) {
-        // Si aucun compte avec cet email n'est trouvé
-        alert("Adresse e-mail non trouvée.");
-        return;
-      }
-
-      // Vérifier si le mot de passe correspond
-      if (compteTrouve.password !== password) {
-        // Si le mot de passe est incorrect
-        alert("Mot de passe incorrect.");
-        return;
-      }
-
-      // Si tout est correct, connecter le compte
-      const index = bakOffice.compte.indexOf(compteTrouve);
-      setBakOffice({ ...bakOffice, compteConnecter: index });
-      setmodalConnection(false);
     }
   }
 
   return (
-    <div>
-      <p>SE CONNECTER</p>
+    <div className="se-connecter-container">
+      <p><strong>SE CONNECTER</strong></p>
       <form>
         <input
           type="email"
@@ -61,14 +45,14 @@ const SeConnecter: React.FC<SeConnecterProps> = ({
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="button" onClick={() => connection()}>
+        <button className= "btn-connexion" type="button" onClick={() => connection()}>
           Se connecter
         </button>
       </form>
-      <button type="button" onClick={() => SetpageInscription(true)}>
-        crée compte
+      <button className= "btn-creer" type="button" onClick={() => SetpageInscription(true)}>
+        Créer un compte
       </button>
-      <button type="button" onClick={() => setmodalConnection(false)}>
+      <button className= "btn-annuler" type="button" onClick={() => setmodalConnection(false)}>
         Annuler
       </button>
     </div>
