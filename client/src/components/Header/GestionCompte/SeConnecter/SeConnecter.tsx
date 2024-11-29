@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { UseBakOfficeContext } from "../../../../hooks/UseBakOffice";
+import "./SeConnecter.css";
 
 interface SeConnecterProps {
   SetpageInscription: (value: boolean) => void;
@@ -46,7 +47,7 @@ const SeConnecter: React.FC<SeConnecterProps> = ({
   }
 
   return (
-    <div>
+    <div className="se-connecter-container">
       <p>SE CONNECTER</p>
       <form>
         <input
@@ -61,14 +62,26 @@ const SeConnecter: React.FC<SeConnecterProps> = ({
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="button" onClick={() => connection()}>
+        <button
+          className="btn-connexion"
+          type="button"
+          onClick={() => connection()}
+        >
           Se connecter
         </button>
       </form>
-      <button type="button" onClick={() => SetpageInscription(true)}>
-        crée compte
+      <button
+        className="btn-creer"
+        type="button"
+        onClick={() => SetpageInscription(true)}
+      >
+        Créer un compte
       </button>
-      <button type="button" onClick={() => setmodalConnection(false)}>
+      <button
+        className="btn-annuler"
+        type="button"
+        onClick={() => setmodalConnection(false)}
+      >
         Annuler
       </button>
     </div>

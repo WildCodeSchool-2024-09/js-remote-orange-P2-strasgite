@@ -9,3 +9,11 @@
   overflow-y: auto;
   border: black 1px solid;
 }
+
+@media (max-width: 768px) {
+  .modalCompte {
+    width: 40vh;
+    height: 80vh;
+    left: 15vw;
+  }
+}
